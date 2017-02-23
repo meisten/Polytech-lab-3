@@ -1,6 +1,6 @@
 #include "cinemascope.h"
 
-int main() {
+int main(int argc, char** argv) {
 
 	while (1) {
 		std::cout << "Choose the list-type: \n";
@@ -15,17 +15,17 @@ int main() {
 		if (command == '0')
 			return 0;
 		else if (command == '1') {
-			std::cout << "# DEQUE" << std::endl;
+			system("cls");
 			list::deque x;
 			Scope::deque(x);
 		}
 		else if (command == '2') {
-			std::cout << "# STACK" << std::endl;
+			system("cls");
 			list::stack x;
 			Scope::stack(x);
 		}
 		else if (command == '3') {
-			std::cout << "# QUEUE" << std::endl;
+			system("cls");
 			list::queue x;
 			Scope::queue(x);
 		}
@@ -33,6 +33,5 @@ int main() {
 			std::cout << "# Traceback (OPERATION): wrong command \n";
 		
 	}
-	system("pause");
 	return 0;
 }

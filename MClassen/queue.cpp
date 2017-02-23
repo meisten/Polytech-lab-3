@@ -3,10 +3,9 @@
 int list::queue::Push(const int &num) {
 	int length = clist::Len();
 
-	if (clist::Insert(num, length) == 0)
+	if (!clist::Insert(num, length))
 		return 0;
-	else
-		return 1;
+	return 1;
 }
 
 int list::queue::Pop(void) {

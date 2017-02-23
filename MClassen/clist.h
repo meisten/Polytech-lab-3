@@ -16,13 +16,14 @@ namespace list {
 		virtual int Push(const int &) = 0;
 		virtual int Pop(void) = 0;
 		// Engines
-		void swap(int *, int, int);
+		void swap(int *, const int&, const int&);
 	public:
 		// Methods
 		clist();
 		virtual ~clist(void);
 		int Read(const char *pathFile = "list.txt");
 		int Write(const char *pathFile = "result.txt");
+		int Search(const int &);
 		int Free(void);
 		void Output(void);
 		int Len(void);

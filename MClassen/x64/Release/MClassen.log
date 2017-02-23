@@ -6,9 +6,7 @@ clist.cpp(63): warning C4244: 'initializing': conversion from 'std::streamoff' t
   source.cpp
   stack.cpp
   Generating code
-  55 of 204 functions (27.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+  All 205 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.exe
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.pdb (Full PDB)

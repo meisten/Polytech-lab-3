@@ -2,14 +2,15 @@
 
 int list::deque::Push(const int &num) {
 	int length = clist::Len();
-	if (clist::Insert(num, length) == 0) {
+	if (!clist::Insert(num, length))
 		return 0;
-	}
+	return 1;
 }
 
 int list::deque::PushFront(const int &num) {
-	clist::Insert(num, 0);
-	return 0;
+	if (!clist::Insert(num, 0))
+		return 0;
+	return 1;
 }
 
 int list::deque::PopFront(void) {
@@ -28,7 +29,7 @@ int list::deque::PopFront(void) {
 		}
 		catch (char* exception) {
 			std::cout << exception << std::endl;
-			return NULL;
+			return 0;
 		}
 }
 
@@ -45,7 +46,11 @@ int list::deque::Pop(void) {
 				i++;
 			}
 
-			ReturnItem = CopyList->next;
+			if(CopyList->next == NULL && CopyList)
+				ReturnItem = CopyList;
+			else if(CopyList->next)
+				ReturnItem = CopyList->next;
+
 			clist::Delete(length - 1);
 			return ReturnItem->item;
 		}

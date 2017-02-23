@@ -456,7 +456,38 @@ int list::clist::Sort() {
 
 }
 
-void list::clist::swap(int *listArray, int i, int j)
+int list::clist::Search(const int &num) {
+	try {
+		if (this->CList != NULL) {
+			Pointer *SearchList = this->CList;
+			int length = list::clist::Len();
+
+			int pos(0);
+			while (pos < length && SearchList) {
+				if (SearchList->item == num) {
+					SearchList = NULL;
+					delete SearchList;
+					return pos;
+				}
+				SearchList = SearchList->next;
+				pos++;
+			}
+
+			SearchList = NULL;
+			delete SearchList;
+			throw "# Traceback (SEARCH): The input value wasn't found";
+		}
+		else {
+			throw "# Traceback (SEARCH): The list is empty";
+		}
+	}
+	catch (char *exception) {
+		std::cout << exception << std::endl;
+		return -1;
+	}
+}
+
+void list::clist::swap(int *listArray, const int &i, const int  &j)
 {
 	int glass = listArray[i];
 	listArray[i] = listArray[j];
