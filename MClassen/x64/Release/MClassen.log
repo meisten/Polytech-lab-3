@@ -1,10 +1,12 @@
 ﻿  clist.cpp
-clist.cpp(66): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+clist.cpp(67): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+  deque.cpp
+  queue.cpp
   source.cpp
   stack.cpp
   Generating code
-x:\cloud\projects\cp\mclassen\mclassen\stack.cpp(9): warning C4715: 'stack::Push': not all control paths return a value
-  All 156 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+x:\cloud\projects\cp\mclassen\mclassen\deque.cpp(9): warning C4715: 'deque::Push': not all control paths return a value
+  All 182 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.exe
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.pdb (Full PDB)

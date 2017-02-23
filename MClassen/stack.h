@@ -3,7 +3,7 @@
 
 class stack : public clist {
 public:
-	stack(const char *pathFile = "list.txt") : clist(pathFile) {};
+	stack() : clist() {};
 	~stack() {};
 
 	int Push(const int &);

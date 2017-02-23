@@ -12,14 +12,13 @@ class clist
 {
 protected:
 	Pointer* CList;
-	// Engine
-	Pointer* endPoint();
 	// Virtual methods
+	int Rebuild(bool freeOption = false);
 	virtual int Push(const int &) = 0;
 	virtual int Pop(void) = 0;
 public:
 	// Methods
-	clist(const char *pathFile = "list.txt");
+	clist();
 	virtual ~clist(void);
 	int Read(const char *pathFile = "list.txt");
 	int Write(const char *pathFile = "result.txt");

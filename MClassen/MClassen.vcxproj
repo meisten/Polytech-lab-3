@@ -111,11 +111,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="clist.cpp" />
+    <ClCompile Include="deque.cpp" />
+    <ClCompile Include="queue.cpp" />
     <ClCompile Include="source.cpp" />
     <ClCompile Include="stack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clist.h" />
+    <ClInclude Include="deque.h" />
+    <ClInclude Include="queue.h" />
     <ClInclude Include="stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

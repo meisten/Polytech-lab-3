@@ -3,9 +3,10 @@
 
 int stack::Push(const int &num) {
 	int length = clist::Len();
-	if (clist::Insert(num, length) == 0) {
+	if (clist::Insert(num, length) == 0)
 		return 0;
-	}
+	else
+		return 1;
 }
 
 int stack::Pop(void) {
@@ -20,8 +21,7 @@ int stack::Pop(void) {
 	}
 	
 	ReturnItem = CopyList->next;
-	CopyList->next = NULL;
-	delete CopyList->next;
+	clist::Delete(length - 1);
 
 	return ReturnItem->item;
 }
