@@ -7,12 +7,12 @@ int main(int argc, char** argv) {
 		std::cout << "1 - Deque \n";
 		std::cout << "2 - Stack \n";
 		std::cout << "3 - Queue \n";
-		std::cout << "0 - EXIT \n";
+		std::cout << "esc - EXIT \n";
 		std::cout << ">>> ";
 		char command = _getch();
 		std::cout << command << std::endl;
 
-		if (command == '0')
+		if (command == 27)
 			return 0;
 		else if (command == '1') {
 			system("cls");

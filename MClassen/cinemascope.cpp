@@ -40,33 +40,27 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 	int item = 0;
 	int position = 0;
 
-	switch (tolower(c)) {
-	case 27:
+	if (tolower(c) == 27)
 		return -1;
-		break;
-
-	case '1':
+	else if (tolower(c) == '1') {
 		if (!x.Read())
 			std::cout << "::: Done!" << std::endl;
-		break;
-
-	case '2':
+	}
+	else if (tolower(c) == '2') {
 		if (!x.Write())
 			std::cout << "::: Done!" << std::endl;
-		break;
-
-	case '3':
+	}
+	else if (tolower(c) == '3') {
 		if (!x.Free())
 			std::cout << "::: Done!" << std::endl;
-		break;
-
-	case '4':
-
+	}
+	else if (tolower(c) == '4') {
 		std::cout << "::: Insert -> Input Item: ";
 		while (!(std::cin >> item) || std::cin.get() != '\n')
 		{
 			std::cin.clear();
 			std::cin.sync();
+			std::cin.ignore(10000, '\n');
 			std::cout << "::: Insert -> Input Position: ";
 		}
 
@@ -75,67 +69,68 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 		{
 			std::cin.clear();
 			std::cin.sync();
+			std::cin.ignore(10000, '\n');
 			std::cout << "::: Insert -> Input Position: ";
 		}
 
 		if (!x.Insert(item, position))
 			std::cout << "::: Done" << std::endl;
-		break;
-
-	case '5':
-		std::cout << "::: Insert -> Input Position: ";
+	}
+	else if (tolower(c) == '5') {
+		std::cout << "::: Delete -> Input Position: ";
 		while (!(std::cin >> position) || std::cin.get() != '\n')
 		{
 			std::cin.clear();
 			std::cin.sync();
-			std::cout << "::: Insert -> Input Position: ";
+			std::cin.ignore(10000, '\n');
+			std::cout << "::: Delete -> Input Position: ";
 		}
 		if (x.Delete(position))
 			std::cout << "::: Done" << std::endl;
-		break;
-
-	case '6':
+	}
+	else if (tolower(c) == '6') {
 		std::cout << "::: Len: " << x.Len() << std::endl;
-		break;
-
-	case '7':
+	}
+	else if (tolower(c) == '7') {
 		x.Output();
-		break;
-
-	case '8':
+	}
+	else if (tolower(c) == '8') {
 		if (!x.Sort())
 			std::cout << "::: Done!" << std::endl;
-		break;
-
-	case '9':
+	}
+	else if (tolower(c) == '9') {
 		std::cout << "::: Search -> Input Value: ";
 		while (!(std::cin >> item) || std::cin.get() != '\n')
 		{
 			std::cin.clear();
-			std::cin.sync();
+			std::cin.sync(); std::cin.ignore(10000, '\n');
 			std::cout << "::: Insert -> Input Position: ";
 		}
-		if (x.Search(item))
+		int resultSearch = x.Search(item);
+		if (resultSearch >= 0) {
+			std::cout << "::: Search -> Position: " << resultSearch << std::endl;
 			std::cout << "::: Done" << std::endl;
-		break;
-
-	default:
-		return 0;
-		break;
+		}
 	}
+	else
+		return 0;
 	return 1;
 }
 
 void Scope::deque(list::deque& x) {
 	while (1) {
+
 		std::cout << "# DEQUE" << std::endl;
 		Scope::overallMenu(1);
+
 		std::cout << ">>> ";
 		char d = _getch();
 		std::cout << d << std::endl;
+
 		bool returnBack = false;
 		int item = 0;
 		int position = 0;
+
 		system("cls");
 		switch (Scope::overallChoose(d, 1, x)){
 			case -1:
@@ -149,7 +144,8 @@ void Scope::deque(list::deque& x) {
 						while (!(std::cin >> item) || std::cin.get() != '\n')
 						{
 							std::cin.clear();
-							std::cin.ignore(256, '\n');
+							std::cin.sync();std::cin.ignore(10000,'\n');
+
 							std::cout << "::: PushFront -> Enter value ";
 						}
 
@@ -161,7 +157,7 @@ void Scope::deque(list::deque& x) {
 						while (!(std::cin >> item) || std::cin.get() != '\n')
 						{
 							std::cin.clear();
-							std::cin.ignore(256, '\n');
+							std::cin.sync();std::cin.ignore(10000,'\n');
 							std::cout << "::: PushBack -> Enter value: ";
 						}
 
@@ -196,6 +192,7 @@ void Scope::stack(list::stack& x) {
 	while (1) {
 		std::cout << "# STACK" << std::endl;
 		Scope::overallMenu(1);
+
 		std::cout << ">>> ";
 		char d = _getch();
 		std::cout << d << std::endl;
@@ -203,6 +200,7 @@ void Scope::stack(list::stack& x) {
 		bool returnBack = false;
 		int item = 0;
 
+		system("cls");
 		switch (Scope::overallChoose(d, 2, x)) {
 			case -1:
 				returnBack = true;
@@ -214,7 +212,7 @@ void Scope::stack(list::stack& x) {
 					while (!(std::cin >> item) || std::cin.get() != '\n')
 					{
 						std::cin.clear();
-						std::cin.ignore(256, '\n');
+						std::cin.sync();std::cin.ignore(10000,'\n');
 						std::cout << "::: Push (Back) -> Enter value: ";
 					}
 					if (x.Push(item))
@@ -245,6 +243,7 @@ void Scope::queue(list::queue& x) {
 	while (1) {
 		std::cout << "# QUEUE" << std::endl;
 		Scope::overallMenu(3);
+
 		std::cout << ">>> ";
 		char d = _getch();
 		std::cout << d << std::endl;
@@ -252,6 +251,7 @@ void Scope::queue(list::queue& x) {
 		bool returnBack = false;
 		int item = 0;
 
+		system("cls");
 		switch (Scope::overallChoose(d, 3, x)) {
 		case -1:
 			returnBack = true;
@@ -263,7 +263,7 @@ void Scope::queue(list::queue& x) {
 				while (!(std::cin >> item) || std::cin.get() != '\n')
 				{
 					std::cin.clear();
-					std::cin.ignore(256, '\n');
+					std::cin.sync();std::cin.ignore(10000,'\n');
 					std::cout << "::: Push (Back) -> Enter value: ";
 				}
 
