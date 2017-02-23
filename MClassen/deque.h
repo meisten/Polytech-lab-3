@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEQUE_CL
+#define DEQUE_CL
 #include "clist.h"
 
 namespace list {
@@ -13,3 +14,5 @@ namespace list {
 		int PopFront(void);
 	};
 }
+
+#endif

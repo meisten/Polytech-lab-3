@@ -1,4 +1,3 @@
-#pragma once
 #include "stack.h"
 
 int list::stack::Push(const int &num) {

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef QUEUE_CL
+#define QUEUE_CL
 #include "clist.h"
 
 namespace list {
@@ -11,3 +12,5 @@ namespace list {
 		int Pop(void);
 	};
 }
+
+#endif

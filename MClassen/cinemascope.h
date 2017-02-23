@@ -1,7 +1,7 @@
-#pragma once
+#ifndef SCOPE_SP
+#define SCOPE_SP
 #include <iostream>
 #include <conio.h>
-#include "clist.h"
 #include "deque.h"
 #include "stack.h"
 #include "queue.h"
@@ -17,3 +17,4 @@ namespace Scope {
 
 	void stack(list::stack&);
 }
+#endif

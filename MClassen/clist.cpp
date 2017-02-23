@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include "clist.h"
 
@@ -93,7 +92,6 @@ int list::clist::Read(const char *pathFile) {
 				}
 				i++;
 			}
-			list::clist::Delete(0);
 			delete[] buffer;
 			inputFile.close();
 		}
@@ -362,4 +360,105 @@ int list::clist::Delete(const int &pos) {
 		std::cout << exception << std::endl;
 		return 1;
 	}
+}
+
+int list::clist::Sort() {
+	try {
+		if (this->CList != NULL) {
+			int length = list::clist::Len();
+			Pointer *GetList = this->CList;
+			Pointer *WriteList = this->CList;
+
+			int* listed = new int[length];
+			for (int i(0); i < length; i++) {
+				listed[i] = GetList->item;
+				GetList = GetList->next;
+			}
+
+			long rSubarray, lSubarray;
+			long leftEdge, rightEdge;
+			long llEdgeB[64], lrEdgeB[64];
+
+			long bufPossition = 1;
+			long middle = 0;
+			long bearing = 0;
+			llEdgeB[1] = 0;
+			lrEdgeB[1] = length - 1;
+			do {
+
+				leftEdge = llEdgeB[bufPossition];
+				rightEdge = lrEdgeB[bufPossition];
+				bufPossition--;
+
+				do {
+
+					middle = (leftEdge + rightEdge) / 2;
+					rSubarray = leftEdge;
+					lSubarray = rightEdge;
+					bearing = listed[middle];
+					if (rSubarray - lSubarray != 0) {
+						do {
+							do {
+								if (listed[rSubarray] < bearing) {
+									rSubarray++;
+								}
+							} while (listed[rSubarray] < bearing);
+							do {
+								if (bearing < listed[lSubarray]) {
+									lSubarray--;
+								}
+							} while (bearing < listed[lSubarray]);
+
+							if (rSubarray <= lSubarray) {
+								if ((rSubarray != lSubarray) && (listed[rSubarray] != listed[lSubarray])) {
+									swap(listed, rSubarray, lSubarray);
+								}
+								rSubarray++; lSubarray--;
+							}
+						} while (rSubarray <= lSubarray);
+
+						if (rSubarray < middle) {
+							if (rSubarray < rightEdge) {
+								bufPossition++;
+								llEdgeB[bufPossition] = rSubarray;
+								lrEdgeB[bufPossition] = rightEdge;
+							}
+							rightEdge = lSubarray;
+						}
+						else {
+							if (lSubarray > leftEdge) {
+								bufPossition++;
+								llEdgeB[bufPossition] = leftEdge;
+								lrEdgeB[bufPossition] = lSubarray;
+							}
+							leftEdge = rSubarray;
+						}
+					}
+				} while (leftEdge < rightEdge);
+			} while (bufPossition != 0);
+
+			for (int i(0); i < length; i++) {
+				WriteList->item = listed[i];
+				WriteList = WriteList->next;
+			}
+			return 0;
+		}
+		else {
+			throw "# Traceback (SORT): The list is empty";
+		}
+	}
+	catch (char *exception) {
+		std::cout << exception << std::endl;
+		return 1;
+	}
+
+	return 0;
+
+}
+
+void list::clist::swap(int *listArray, int i, int j)
+{
+	int glass = listArray[i];
+	listArray[i] = listArray[j];
+	listArray[j] = glass;
 }

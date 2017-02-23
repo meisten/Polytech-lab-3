@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STACK_CL
+#define STACK_CL
+
 #include "clist.h"
 namespace list {
 	class stack : public clist {
@@ -10,3 +12,5 @@ namespace list {
 		int Pop(void);
 	};
 }
+
+#endif

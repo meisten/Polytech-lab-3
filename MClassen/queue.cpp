@@ -1,4 +1,3 @@
-#pragma once
 #include "queue.h"
 
 int list::queue::Push(const int &num) {

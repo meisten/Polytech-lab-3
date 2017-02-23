@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LIST_CL
+#define LIST_CL
+
 #include <fstream>
 #include <iostream>
 #include <conio.h>
@@ -13,6 +15,8 @@ namespace list {
 		int Rebuild(bool freeOption = false);
 		virtual int Push(const int &) = 0;
 		virtual int Pop(void) = 0;
+		// Engines
+		void swap(int *, int, int);
 	public:
 		// Methods
 		clist();
@@ -24,5 +28,8 @@ namespace list {
 		int Len(void);
 		int Insert(const int &, const int &);
 		int Delete(const int &);
+		int Sort();
 	};
 }
+
+#endif

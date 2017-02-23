@@ -1,4 +1,3 @@
-#pragma once
 #include "cinemascope.h"
 #include "stack.h"
 #include "queue.h"
@@ -8,7 +7,7 @@ void Scope::overallMenu(int b) {
 
 	std::cout << "Enter a command: \n";
 	std::cout << "q - Return back\n";
-	std::cout << "c - Clear screen\n";
+	std::cout << "0 - Sort \n";
 	std::cout << "1 - Read from file\n";
 	std::cout << "2 - Write in a file\n";
 	std::cout << "3 - Clear\n";
@@ -46,38 +45,44 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 		return -1;
 		break;
 
-	case 'c':
-		system("cls");
+	case '0':
+		if (!x.Sort())
+			std::cout << "::: Done!" << std::endl;
 		break;
 
 	case '1':
-		x.Read();
+		if (!x.Read())
+			std::cout << "::: Done!" << std::endl;
 		break;
 
 	case '2':
-		x.Write();
+		if (!x.Write())
+			std::cout << "::: Done!" << std::endl;
 		break;
 
 	case '3':
-		x.Free();
+		if (!x.Free())
+			std::cout << "::: Done!" << std::endl;
 		break;
 
 	case '4':
-		std::cout << "INSERT -> Input Item: ";
+		std::cout << "::: Insert -> Input Item: ";
 		std::cin >> item;
-		std::cout << "INSERT -> Input Position: ";
+		std::cout << "::: Insert -> Input Position: ";
 		std::cin >> position;
-		x.Insert(item, position);
+		if (x.Insert(item, position))
+			std::cout << "::: Done" << std::endl;
 		break;
 
 	case '5':
-		std::cout << "Pos: ";
+		std::cout << "::: Insert -> Input Position: ";
 		std::cin >> position;
-		x.Delete(position);
+		if (x.Delete(position))
+			std::cout << "::: Done" << std::endl;
 		break;
 
 	case '6':
-		std::cout << "Len: " << x.Len() << std::endl;
+		std::cout << "::: Len: " << x.Len() << std::endl;
 		break;
 
 	case '7':
@@ -93,10 +98,11 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 
 
 void Scope::deque(list::deque& x) {
-	Scope::overallMenu(1);
 	while (1) {
+		Scope::overallMenu(1);
 		std::cout << ">>> ";
 		char d = _getch();
+		std::cout << d << std::endl;
 		bool returnBack = false;
 		int item = 0;
 
@@ -109,18 +115,22 @@ void Scope::deque(list::deque& x) {
 				case 56:
 					std::cout << "PushFront -> Enter value: ";
 					std::cin >> item;
-					x.PushFront(item);
+					if (!x.PushFront(item))
+						std::cout << "::: Done!" << std::endl;
 					break;
 				case 57:
 					std::cout << "PushBack -> Enter value: ";
 					std::cin >> item;
-					x.Push(item);
+
+					if (!x.Push(item))
+						std::cout << "::: Done!" << std::endl;
 					break;
+
 				case 97:
-					std::cout << "PopFront -> The obtained value: " << x.PopFront() << std::endl;
+					std::cout << "::: PopFront -> The obtained value: " << x.PopFront() << std::endl;
 					break;
 				case 98:
-					std::cout << "PopBack -> The obtained value: " << x.Pop() << std::endl;
+					std::cout << "::: PopBack -> The obtained value: " << x.Pop() << std::endl;
 					break;
 				default:
 					std::cout << "# Traceback (OPERATIONS-DEQUE): Wrong command" << std::endl;
@@ -137,15 +147,17 @@ void Scope::deque(list::deque& x) {
 		while (_kbhit())
 			_getch();
 
+		std::cout << "::: Press any key to continue...";
+		_getch();
+		system("cls");
 		if (returnBack)
 			break;
-
 	}
 }
 
 void Scope::stack(list::stack& x) {
-	Scope::overallMenu(2);
 	while (1) {
+		Scope::overallMenu(1);
 		std::cout << ">>> ";
 		char d = _getch();
 		std::cout << d << std::endl;
@@ -160,12 +172,13 @@ void Scope::stack(list::stack& x) {
 			case 0:
 				switch (tolower(d)) {
 				case '8':
-					std::cout << "Push (Back) -> Enter value: ";
+					std::cout << "::: Push (Back) -> Enter value: ";
 					std::cin >> item;
-					x.Push(item);
+					if (x.Push(item))
+						std::cout << "::: Done!" << std::endl;
 					break;
 				case '9':
-					std::cout << "Pop (Back) -> The obtained value: " << x.Pop() << std::endl;
+					std::cout << "::: Pop (Back) -> The obtained value: " << x.Pop() << std::endl;
 					break;
 				default:
 					std::cout << "# Traceback (OPERATIONS-QUEUE): Wrong command" << std::endl;
@@ -179,14 +192,18 @@ void Scope::stack(list::stack& x) {
 				break;
 		}
 
+		std::cout << "::: Press any key to continue...";
+		_getch();
+		system("cls");
 		if (returnBack)
 			break;
+
 	}
 }
 
 void Scope::queue(list::queue& x) {
-	Scope::overallMenu(3);
 	while (1) {
+		Scope::overallMenu(3);
 		std::cout << ">>> ";
 		char d = _getch();
 		std::cout << d << std::endl;
@@ -201,16 +218,21 @@ void Scope::queue(list::queue& x) {
 		case 0:
 			switch (tolower(d)) {
 			case '8':
-				std::cout << "Push (Back) -> Enter value: "; 
+				std::cout << "::: Push (Back) -> Enter value: "; 
 				std::cin >> item;
-				x.Push(item);
+
+				if (!x.Push(item))
+					std::cout << "::: Done!" << std::endl;
 				break;
+
 			case '9':
-				std::cout << "Pop (Front) -> The obtained value: " << x.Pop() << std::endl;
+				std::cout << "::: Pop (Front) -> The obtained value: " << x.Pop() << std::endl;
 				break;
+
 			default:
 				std::cout << "# Traceback (OPERATIONS-QUEUE): Wrong command" << std::endl;
 				break;
+
 			}
 			break;
 		case 1:
@@ -219,7 +241,9 @@ void Scope::queue(list::queue& x) {
 		default:
 			break;
 		}
-
+		std::cout << "::: Press any key to continue...";
+		_getch();
+		system("cls");
 		if (returnBack)
 			break;
 	}
