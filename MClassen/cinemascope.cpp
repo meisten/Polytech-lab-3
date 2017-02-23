@@ -191,7 +191,7 @@ void Scope::deque(list::deque& x) {
 void Scope::stack(list::stack& x) {
 	while (1) {
 		std::cout << "# STACK" << std::endl;
-		Scope::overallMenu(1);
+		Scope::overallMenu(2);
 
 		std::cout << ">>> ";
 		char d = _getch();
