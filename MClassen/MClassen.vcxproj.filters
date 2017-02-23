@@ -30,6 +30,9 @@
     <ClCompile Include="deque.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cinemascope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clist.h">
@@ -42,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="deque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cinemascope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

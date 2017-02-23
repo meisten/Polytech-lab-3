@@ -1,80 +1,38 @@
-#include <iostream>
-#include "clist.h"
-#include "stack.h"
-#include "queue.h"
-#include "deque.h"
+#include "cinemascope.h"
 
 int main() {
-	std::cout << "Enter a command: \n";
-	std::cout << "1 - Push\n";
-	std::cout << "2 - Pop\n";
-	std::cout << "3 - Free\n";
-	std::cout << "4 - Write\n";
-	std::cout << "5 - Read\n";
-	std::cout << "6 - Insert\n";
-	std::cout << "7 - Delete\n";
-	std::cout << "8 - Len\n";
-	std::cout << "9 - Print\n";
-	deque x;
-	while(1) {
-		int item = 0;
-		int position = 0;
-		int choose = 0;
 
-		std::cin >> choose;
-		switch (choose){
-			case 1:
-				std::cout << "Input Item: ";
-				std::cin >> item;
-				x.Push(item);
-				break;
+	while (1) {
+		std::cout << "Choose the list-type: \n";
+		std::cout << "1 - Deque \n";
+		std::cout << "2 - Stack \n";
+		std::cout << "3 - Queue \n";
+		std::cout << "0 - EXIT \n";
+		std::cout << ">>> ";
+		char command = _getch();
+		std::cout << command << std::endl;
 
-			case 2:
-				std::cin >> item;
-				std::cout << x.Pop() << std::endl;
-				break;
-
-			case 3:
-				x.Free();
-				break;
-
-			case 4:
-				x.Write();
-				break;
-
-			case 5:
-				x.Read();
-				break;
-
-			case 6:
-				std::cout << "Item: ";
-					std::cin >> item;
-				std::cout << "Pos: ";
-					std::cin >> position;
-
-				x.Insert(item, position);
-				break;
-
-			case 7:
-				std::cout << "Pos: ";
-				std::cin >> position;
-				x.Delete(position);
-				break;
-
-			case 8:
-				std::cout << "Len: " << x.Len() << std::endl;
-				break;
-
-			case 9:
-				x.Output();
-				break;
-
-			default:
-				std::cout << "ERROR OPERATION";
-				break;
-			}
+		if (command == '0')
+			return 0;
+		else if (command == '1') {
+			std::cout << "# DEQUE" << std::endl;
+			list::deque x;
+			Scope::deque(x);
+		}
+		else if (command == '2') {
+			std::cout << "# STACK" << std::endl;
+			list::stack x;
+			Scope::stack(x);
+		}
+		else if (command == '3') {
+			std::cout << "# QUEUE" << std::endl;
+			list::queue x;
+			Scope::queue(x);
+		}
+		else
+			std::cout << "# Traceback (OPERATION): wrong command \n";
+		
 	}
-
 	system("pause");
 	return 0;
 }

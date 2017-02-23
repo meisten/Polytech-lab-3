@@ -1,20 +1,17 @@
 #pragma once
 #include <iostream>
 #include "clist.h"
-#include "stack.h"
-#include <fstream>
-#include <string>
 
-clist::clist()
+list::clist::clist()
 {
 	this->CList = NULL;
 }
 
-int clist::Write(const char *pathFile) {
+int list::clist::Write(const char *pathFile) {
 	try {
 		if (this->CList != NULL) {
 			Pointer* readableList = this->CList;
-			int lenPoints = clist::Len();
+			int lenPoints = list::clist::Len();
 			char * buffer = new char[lenPoints];
 
 			int i = 0;
@@ -48,13 +45,13 @@ int clist::Write(const char *pathFile) {
 	}
 }
 
-int clist::Read(const char *pathFile) {
-	clist::Rebuild();
+int list::clist::Read(const char *pathFile) {
+	list::clist::Rebuild();
 	Pointer* filledList = new Pointer;
 	Pointer* readItem = new Pointer;
 	Pointer* delDefPointer = this->CList;
 
-	clist::Free();
+	list::clist::Free();
 
 	try {
 		std::ifstream inputFile(pathFile, std::ifstream::binary);
@@ -72,7 +69,7 @@ int clist::Read(const char *pathFile) {
 			int digit = 0;
 			int spaces = 0;
 			int i = 0;
-			int lenPoints = clist::Len();
+			int lenPoints = list::clist::Len();
 
 			while (i < length) {
 				if (!isspace(buffer[i])){
@@ -86,17 +83,17 @@ int clist::Read(const char *pathFile) {
 								r++;
 								i++;
 							}
-							clist::Insert(atoi(digit), lenPoints);
+							list::clist::Insert(atoi(digit), lenPoints);
 						}
 						else {
-							clist::Insert(int(buffer[i] - '0'), lenPoints);
+							list::clist::Insert(int(buffer[i] - '0'), lenPoints);
 						}
 						lenPoints++;
 					}
 				}
 				i++;
 			}
-			clist::Delete(0);
+			list::clist::Delete(0);
 			delete[] buffer;
 			inputFile.close();
 		}
@@ -117,7 +114,7 @@ int clist::Read(const char *pathFile) {
 	return 0;
 }
 
-int clist::Free(void)
+int list::clist::Free(void)
 {
 	try{
 		if (this->CList != NULL) {
@@ -141,8 +138,8 @@ int clist::Free(void)
 			delete FreeList;
 			delete DelPoint;
 
-			clist::Delete(0);
-			clist::Rebuild(true);
+			list::clist::Rebuild(true);
+			list::clist::Delete(0);
 			return 0;
 		}
 		else
@@ -155,14 +152,14 @@ int clist::Free(void)
 
 }
 
-clist::~clist(void)
+list::clist::~clist(void)
 {
-	clist::Free();
+	list::clist::Free();
 	this->CList = NULL;
 	delete this->CList;
 }
 
-void clist::Output(void)
+void list::clist::Output(void)
 {
 	if (this->CList != NULL) {
 		Pointer* Output = this->CList;
@@ -182,7 +179,7 @@ void clist::Output(void)
 	}
 }
 
-int clist::Len(void)
+int list::clist::Len(void)
 {
 	if (this->CList != NULL) {
 		Pointer* CopyList = this->CList;
@@ -206,7 +203,7 @@ int clist::Len(void)
 	}
 }
 
-int clist::Rebuild(bool freeOption) {
+int list::clist::Rebuild(bool freeOption) {
 	if (this->CList == NULL || freeOption == true) {
 		this->CList = NULL;
 		Pointer** InitList = &(this->CList);
@@ -218,15 +215,15 @@ int clist::Rebuild(bool freeOption) {
 	return 1;
 }
 
-int clist::Insert(const int &num, const int &pos)
+int list::clist::Insert(const int &num, const int &pos)
 {
 	try {
-		int length = clist::Len();
+		int length = list::clist::Len();
 		Pointer* InsertBlock = new Pointer;
 		Pointer* CopyList = this->CList;
 
-		if (this->CList == NULL) {
-			int a = clist::Rebuild();
+		if (this->CList == NULL && pos == 0) {
+			int a = list::clist::Rebuild();
 			this->CList->item = num;
 			this->CList->next = NULL;
 		}
@@ -288,11 +285,11 @@ int clist::Insert(const int &num, const int &pos)
 	}
 }
 
-int clist::Delete(const int &pos) {
+int list::clist::Delete(const int &pos) {
 
 	try {
 		if (this->CList != NULL) {
-			int length = clist::Len();
+			int length = list::clist::Len();
 			Pointer* DeleteBlock = new Pointer;
 			Pointer* CopyList = this->CList;
 			if (pos == 0 && pos < length) {
