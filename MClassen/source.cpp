@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "cinemascope.h"
 
 int main(int argc, char** argv) {

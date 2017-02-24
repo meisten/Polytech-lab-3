@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "deque.h"
 
 int list::deque::Push(const int &num) {

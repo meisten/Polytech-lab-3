@@ -1,7 +1,5 @@
 #ifndef SCOPE_SP
 #define SCOPE_SP
-#include <iostream>
-#include <conio.h>
 #include "deque.h"
 #include "stack.h"
 #include "queue.h"

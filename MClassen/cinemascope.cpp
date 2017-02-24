@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "cinemascope.h"
 #include "stack.h"
 #include "queue.h"
@@ -13,7 +15,7 @@ void Scope::overallMenu(int b) {
 	std::cout << "4 - Insert item\n";
 	std::cout << "5 - Delete item\n";
 	std::cout << "6 - Get the length of the list\n";
-	std::cout << "7 - Print \n";
+	std::cout << "7 - Print (After each operation)\n";
 	std::cout << "8 - Sort \n";
 	std::cout << "9 - Search \n";
 
@@ -119,7 +121,8 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 
 void Scope::deque(list::deque& x) {
 	while (1) {
-
+		x.Output();
+		std::cout << "_______________________" << std::endl;
 		std::cout << "# DEQUE" << std::endl;
 		Scope::overallMenu(1);
 
@@ -182,7 +185,7 @@ void Scope::deque(list::deque& x) {
 			default:
 				break;
 		}
-		std::cout << "_______________________" << std::endl;
+
 		if (returnBack)
 			break;
 	}
@@ -190,6 +193,8 @@ void Scope::deque(list::deque& x) {
 
 void Scope::stack(list::stack& x) {
 	while (1) {
+		x.Output();
+		std::cout << "_______________________" << std::endl;
 		std::cout << "# STACK" << std::endl;
 		Scope::overallMenu(2);
 
@@ -232,7 +237,6 @@ void Scope::stack(list::stack& x) {
 			default:
 				break;
 		}
-		std::cout << "_______________________" << std::endl;
 		if (returnBack)
 			break;
 

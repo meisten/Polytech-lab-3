@@ -1,10 +1,6 @@
 #ifndef LIST_CL
 #define LIST_CL
 
-#include <fstream>
-#include <iostream>
-#include <conio.h>
-#include <string>
 #include "pointer.h"
 namespace list {
 	class clist

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "stack.h"
 
 int list::stack::Push(const int &num) {

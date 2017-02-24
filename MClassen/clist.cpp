@@ -1,4 +1,4 @@
-#include <iostream>
+#include "stdafx.h"
 #include "clist.h"
 
 list::clist::clist()
