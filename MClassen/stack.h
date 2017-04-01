@@ -8,8 +8,8 @@ namespace list {
 		stack() : clist() {};
 		~stack() {};
 
-		int Push(const int &);
-		int Pop(void);
+		virtual int Push(const int &) override final;
+		virtual int Pop(void) override final;
 	};
 }
 

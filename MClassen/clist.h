@@ -3,19 +3,20 @@
 
 #include "pointer.h"
 namespace list {
-	class clist
-	{
+	class clist {
 	protected:
 		Pointer* CList;
 		// Virtual methods
-		int Rebuild(bool freeOption = false);
 		virtual int Push(const int &) = 0;
 		virtual int Pop(void) = 0;
 		// Engines
+		int Rebuild(bool freeOption = false);
 		void swap(int *, const int&, const int&);
+		int malloc(Pointer*);
+
 	public:
 		// Methods
-		clist();
+		clist() : CList{ nullptr } {};
 		virtual ~clist(void);
 		int Read(const char *pathFile = "list.txt");
 		int Write(const char *pathFile = "result.txt");

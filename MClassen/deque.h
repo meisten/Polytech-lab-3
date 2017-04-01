@@ -8,9 +8,9 @@ namespace list {
 		deque() : clist() {};
 		~deque() {};
 
-		int Push(const int &);
+		virtual int Push(const int &) override final;
 		int PushFront(const int &);
-		int Pop(void);
+		virtual int Pop(void) override final;
 		int PopFront(void);
 	};
 }

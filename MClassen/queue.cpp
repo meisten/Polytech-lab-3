@@ -11,20 +11,21 @@ int list::queue::Push(const int &num) {
 
 int list::queue::Pop(void) {
 	try{
-		if(this->CList != NULL){
-			Pointer* CopyList = this->CList;
-			Pointer* ReturnItem = new Pointer;
+		if(this->CList != nullptr){
+			auto CopyList = this->CList;
+			auto ReturnItem = new Pointer;
 
 			ReturnItem = CopyList;
 			clist::Delete(0);
 
 			return ReturnItem->item;
 		}
-		else
-			throw "# Traceback (STACK-POP): The list is empty";
-		}
+
+		throw "# Traceback (STACK-POP): The list is empty";
+
+	}
 	catch (char* exception) {
 		std::cout << exception << std::endl;
-		return NULL;
+		return 0;
 	}
 }

@@ -10,10 +10,10 @@ int list::stack::Push(const int &num) {
 
 int list::stack::Pop(void) {
 	try{
-		if(this->CList != NULL){
+		if(this->CList != nullptr){
 			int length = clist::Len();
-			Pointer* CopyList = this->CList;
-			Pointer* ReturnItem = new Pointer;
+			auto CopyList = this->CList;
+			auto ReturnItem = new Pointer;
 
 			int i(0);
 			while (i < length - 2) {
@@ -26,11 +26,12 @@ int list::stack::Pop(void) {
 
 			return ReturnItem->item;
 		}
-		else
-			throw "# Traceback (STACK-POP): The list is empty";
-		}
+		
+		throw "# Traceback (STACK-POP): The list is empty";
+
+	}
 	catch (char* exception) {
 		std::cout << exception << std::endl;
-		return NULL;
+		return 0;
 	}
 }

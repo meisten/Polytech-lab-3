@@ -16,9 +16,9 @@ int list::deque::PushFront(const int &num) {
 
 int list::deque::PopFront(void) {
 	try{
-		if (this->CList != NULL) {
-			Pointer* CopyList = this->CList;
-			Pointer* ReturnItem = new Pointer;
+		if (this->CList != nullptr) {
+			auto CopyList = this->CList;
+			auto ReturnItem = new Pointer;
 
 			ReturnItem = CopyList;
 			clist::Delete(0);
@@ -36,10 +36,10 @@ int list::deque::PopFront(void) {
 
 int list::deque::Pop(void) {
 	try {
-		if (this->CList != NULL) {
+		if (this->CList != nullptr) {
 			int length = clist::Len();
-			Pointer* CopyList = this->CList;
-			Pointer* ReturnItem = new Pointer;
+			auto CopyList = this->CList;
+			auto ReturnItem = new Pointer;
 
 			int i(0);
 			while (i < length - 2) {
@@ -47,7 +47,7 @@ int list::deque::Pop(void) {
 				i++;
 			}
 
-			if(CopyList->next == NULL && CopyList)
+			if(CopyList->next == nullptr && CopyList)
 				ReturnItem = CopyList;
 			else if(CopyList->next)
 				ReturnItem = CopyList->next;
@@ -55,11 +55,12 @@ int list::deque::Pop(void) {
 			clist::Delete(length - 1);
 			return ReturnItem->item;
 		}
-		else
-			throw "# Traceback (QUEUE-POPBACK): The list is empty";
+
+		throw "# Traceback (QUEUE-POPBACK): The list is empty";
+
 	}
 	catch (char* exception) {
 		std::cout << exception << std::endl;
-		return NULL;
+		return 0;
 	}
 }
