@@ -46,15 +46,15 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 		return -1;
 	else if (tolower(c) == '1') {
 		if (!x.Read())
-			std::cout << "::: Done!" << std::endl;
+			std::cout << "::: Done: Read from the file" << std::endl;
 	}
 	else if (tolower(c) == '2') {
 		if (!x.Write())
-			std::cout << "::: Done!" << std::endl;
+			std::cout << "::: Done: Write to the file" << std::endl;
 	}
 	else if (tolower(c) == '3') {
 		if (!x.Free())
-			std::cout << "::: Done!" << std::endl;
+			std::cout << "::: Done: Free the list" << std::endl;
 	}
 	else if (tolower(c) == '4') {
 		std::cout << "::: Insert -> Input Item: ";
@@ -76,7 +76,7 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 		}
 
 		if (!x.Insert(item, position))
-			std::cout << "::: Done" << std::endl;
+			std::cout << "::: Done: Insert an item" << std::endl;
 	}
 	else if (tolower(c) == '5') {
 		std::cout << "::: Delete -> Input Position: ";
@@ -88,7 +88,7 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 			std::cout << "::: Delete -> Input Position: ";
 		}
 		if (x.Delete(position))
-			std::cout << "::: Done" << std::endl;
+			std::cout << "::: Done: Delete an item" << std::endl;
 	}
 	else if (tolower(c) == '6') {
 		std::cout << "::: Len: " << x.Len() << std::endl;
@@ -98,7 +98,7 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 	}
 	else if (tolower(c) == '8') {
 		if (!x.Sort())
-			std::cout << "::: Done!" << std::endl;
+			std::cout << "::: Done: Sort the list" << std::endl;
 	}
 	else if (tolower(c) == '9') {
 		std::cout << "::: Search -> Input Value: ";
@@ -111,7 +111,7 @@ int Scope::overallChoose(char c, int b, list::clist& x){
 		int resultSearch = x.Search(item);
 		if (resultSearch >= 0) {
 			std::cout << "::: Search -> Position: " << resultSearch << std::endl;
-			std::cout << "::: Done" << std::endl;
+			std::cout << "::: Done: Searching" << std::endl;
 		}
 	}
 	else
@@ -142,37 +142,37 @@ void Scope::deque(list::deque& x) {
 			case 0:
 				switch (tolower(d)){
 					case 'a':
-						std::cout << "::: PushFront -> Enter value: ";
+						std::cout << "::: Push (Front) -> Enter value: ";
 
 						while (!(std::cin >> item) || std::cin.get() != '\n')
 						{
 							std::cin.clear();
 							std::cin.sync();std::cin.ignore(10000,'\n');
 
-							std::cout << "::: PushFront -> Enter value ";
+							std::cout << "::: Push (Front) -> Enter value ";
 						}
 
 						if (!x.PushFront(item))
-							std::cout << "::: Done!" << std::endl;
+							std::cout << "::: Done: Push (Front)" << std::endl;
 						break;
 					case 'b':
-						std::cout << "::: PushBack -> Enter value: ";
+						std::cout << "::: Push (Back) -> Enter value: ";
 						while (!(std::cin >> item) || std::cin.get() != '\n')
 						{
 							std::cin.clear();
 							std::cin.sync();std::cin.ignore(10000,'\n');
-							std::cout << "::: PushBack -> Enter value: ";
+							std::cout << "::: Push (Back) -> Enter value: ";
 						}
 
 						if (!x.Push(item))
-							std::cout << "::: Done!" << std::endl;
+							std::cout << "::: Done: Push (Back)" << std::endl;
 						break;
 
 					case 'c':
-						std::cout << "::: PopFront -> The obtained value: " << x.PopFront() << std::endl;
+						std::cout << "::: Done: Pop (Front) -> The obtained value: " << x.PopFront() << std::endl;
 						break;
 					case 'd':
-						std::cout << "::: PopBack -> The obtained value: " << x.Pop() << std::endl;
+						std::cout << "::: Done: Pop (Back) -> The obtained value: " << x.Pop() << std::endl;
 						break;
 					default:
 						std::cout << "# Traceback (OPERATIONS-DEQUE): Wrong command" << std::endl;
@@ -221,10 +221,10 @@ void Scope::stack(list::stack& x) {
 						std::cout << "::: Push (Back) -> Enter value: ";
 					}
 					if (x.Push(item))
-						std::cout << "::: Done!" << std::endl;
+						std::cout << "::: Done: Push (Back)" << std::endl;
 					break;
 				case 'b':
-					std::cout << "::: Pop (Back) -> The obtained value: " << x.Pop() << std::endl;
+					std::cout << "::: Done: Pop (Back) -> The obtained value: " << x.Pop() << std::endl;
 					break;
 				default:
 					std::cout << "# Traceback (OPERATIONS-QUEUE): Wrong command" << std::endl;
@@ -272,11 +272,11 @@ void Scope::queue(list::queue& x) {
 				}
 
 				if (!x.Push(item))
-					std::cout << "::: Done!" << std::endl;
+					std::cout << "::: Done! Push (Back)" << std::endl;
 				break;
 
 			case 'b':
-				std::cout << "::: Pop (Front) -> The obtained value: " << x.Pop() << std::endl;
+				std::cout << "::: Done: Pop (Front) -> The obtained value: " << x.Pop() << std::endl;
 				break;
 
 			default:

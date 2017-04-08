@@ -1,13 +1,8 @@
 ﻿  cinemascope.cpp
-  clist.cpp
-  deque.cpp
-  queue.cpp
-  source.cpp
-  stack.cpp
   Generating code
-  8 of 125 functions ( 6.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+  1 of 125 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.exe
   MClassen.vcxproj -> X:\Cloud\Projects\Cp\MClassen\x64\Release\MClassen.pdb (Full PDB)

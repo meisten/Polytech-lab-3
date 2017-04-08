@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "clist.h"
-#include <vector>
+#include <stdlib.h>
 
 #define _c_INFINITY 1
 
@@ -58,22 +58,25 @@ int list::clist::Read(const char *pathFile) {
 			fseek(ptrFile, 0, SEEK_SET);
 
 			char *buffer = new char[length];
-			fgets(buffer, length+1, ptrFile);;
+			fgets(buffer, length+1, ptrFile);
 			auto lenPoints = this->Len();
 
 			for (auto i(0); i < length; i++) {
-				if (!isspace(buffer[i]) && isdigit(buffer[i])) {
-					if (i < length && isdigit(buffer[i])) {
-						char *digit = new char[length];
+				if (!isspace(buffer[i]) && isdigit(buffer[i]) && i < length){
 
-						for (auto r(0); i < length && isdigit(buffer[i]); i++, r++)
-							digit[r] = buffer[i];
+					auto lng = 0;
+					for (auto num(i); isdigit(buffer[num]); num++)
+						lng++;
 
-						this->Insert(atoi(digit), lenPoints);
-						delete[] digit;
+					char *digit = new char[lng];
+					for (auto r(0); r < lng && isdigit(buffer[i]); i++, r++) {
+						digit[r] = buffer[i];
 					}
-					else
-						this->Insert(int(buffer[i] - '0'), lenPoints);
+					digit[lng] = '\0';
+					
+					this->Insert(atoi(digit), lenPoints);
+					delete[] digit;
+
 					lenPoints++;
 				}
 			}
@@ -162,9 +165,9 @@ int list::clist::Len(void)
 		while (CopyList) {
 			length++;
 			if (CopyList->next == nullptr) {
-				return length;
 				CopyList = nullptr;
 				delete CopyList;
+				return length;
 			}
 			CopyList = CopyList->next;
 		}
@@ -195,7 +198,7 @@ int list::clist::Insert(const int &num, const int &pos)
 		auto CopyList = this->CList;
 
 		if (this->CList == nullptr && pos == 0) {
-			int a = this->Rebuild();
+			this->Rebuild();
 			this->CList->item = num;
 			this->CList->next = nullptr;
 		}
@@ -225,8 +228,7 @@ int list::clist::Insert(const int &num, const int &pos)
 			else if (pos > 0 && pos < length) {
 				int curp(0);
 
-				while (_c_INFINITY)
-				{
+				while (_c_INFINITY){
 					if (pos - 1 == curp){
 						InsertBlock->next = CopyList->next;
 						CopyList->next = InsertBlock;
@@ -260,13 +262,11 @@ int list::clist::Delete(const int &pos) {
 			if (pos == 0 && pos < length) {
 				if (!CopyList)
 					throw "# Traceback (DELETE): List is empty";
-				else if (CopyList)
-				{
+				else if (CopyList){
 					this->CList = this->CList->next;
 					CopyList = nullptr;
 				}
-				else if (CopyList && CopyList->next)
-				{
+				else if (CopyList && CopyList->next){
 					this->CList = this->CList->next;
 					CopyList = nullptr;
 				}
@@ -292,10 +292,8 @@ int list::clist::Delete(const int &pos) {
 
 				int curp(0);
 
-				while (_c_INFINITY)
-				{
-					if (pos - 1 == curp)
-					{
+				while (_c_INFINITY){
+					if (pos - 1 == curp){
 						DeleteBlock->next = CopyList->next;
 						delete CopyList;
 						break;
