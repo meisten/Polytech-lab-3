@@ -2,17 +2,17 @@
 #include "stack.h"
 
 int list::stack::Push(const int &num) {
-	int length = clist::Len();
-	if (!clist::Insert(num, length))
+	int length = CList::Len();
+	if (!CList::Insert(num, length))
 		return 0;
 	return 1;
 }
 
 int list::stack::Pop(void) {
 	try{
-		if(this->CList != nullptr){
-			int length = clist::Len();
-			auto CopyList = this->CList;
+		if(this->ioList->next != nullptr){
+			int length = CList::Len();
+			auto CopyList = this->ioList;
 			auto ReturnItem = new Pointer;
 
 			int i(0);
@@ -22,7 +22,7 @@ int list::stack::Pop(void) {
 			}
 	
 			ReturnItem = CopyList->next;
-			clist::Delete(length - 1);
+			CList::Delete(length - 1);
 
 			return ReturnItem->item;
 		}

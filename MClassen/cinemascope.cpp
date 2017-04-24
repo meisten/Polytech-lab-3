@@ -38,7 +38,7 @@ void Scope::overallMenu(int b) {
 	}
 }
 
-int Scope::overallChoose(char c, int b, list::clist& x){
+int Scope::overallChoose(char c, int b, list::CList& x){
 	int item = 0;
 	int position = 0;
 
@@ -245,6 +245,8 @@ void Scope::stack(list::stack& x) {
 
 void Scope::queue(list::queue& x) {
 	while (1) {
+		x.Output();
+		std::cout << "_______________________" << std::endl;
 		std::cout << "# QUEUE" << std::endl;
 		Scope::overallMenu(3);
 
@@ -291,7 +293,6 @@ void Scope::queue(list::queue& x) {
 		default:
 			break;
 		}
-		std::cout << "_______________________" << std::endl;
 		if (returnBack)
 			break;
 	}

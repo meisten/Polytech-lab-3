@@ -1,13 +1,19 @@
 #include "stdafx.h"
 #include "clist.h"
-#include <stdlib.h>
 
 #define _c_INFINITY 1
 
-int list::clist::Write(const char *pathFile) {
+list::CList::CList() {
+	auto InitList = &(this->ioList);
+	*InitList = new Pointer;
+	(*InitList)->item = 0;
+	(*InitList)->next = nullptr;
+}
+
+int list::CList::Write(const char *pathFile) {
 	try {
-		if (this->CList != nullptr) {
-			auto *readableList = this->CList;
+		if (this->ioList != nullptr) {
+			auto *readableList = this->ioList;
 			int lenPoints = this->Len();
 			char *buffer = new char[lenPoints];
 
@@ -20,9 +26,9 @@ int list::clist::Write(const char *pathFile) {
 
 			while (i < lenPoints && readableList != nullptr) {
 				std::string s = std::to_string(readableList->item);
-				char const *pchar = s.c_str();
+				fwrite(s.c_str(), sizeof(char), strlen(s.c_str()), f);
+				fwrite(" ", 1, 1, f);
 				readableList = readableList->next;
-				fwrite(pchar, sizeof(char), strlen(pchar) + 1, f);
 				i++;
 			}
 
@@ -40,12 +46,11 @@ int list::clist::Write(const char *pathFile) {
 	}
 }
 
-int list::clist::Read(const char *pathFile) {
+int list::CList::Read(const char *pathFile) {
 
 	auto *readItem = new Pointer;
 	auto *ptrFile = new FILE;
 
-	this->Rebuild();
 	this->Free();
 
 	try {
@@ -64,12 +69,12 @@ int list::clist::Read(const char *pathFile) {
 			for (auto i(0); i < length; i++) {
 				if (!isspace(buffer[i]) && isdigit(buffer[i]) && i < length){
 
-					auto lng = 0;
+					int lng = 0;
 					for (auto num(i); isdigit(buffer[num]); num++)
 						lng++;
 
 					char *digit = new char[lng];
-					for (auto r(0); r < lng && isdigit(buffer[i]); i++, r++) {
+					for (int r(0); r < lng && isdigit(buffer[i]); i++, r++) {
 						digit[r] = buffer[i];
 					}
 					digit[lng] = '\0';
@@ -94,55 +99,43 @@ int list::clist::Read(const char *pathFile) {
 	return 0;
 }
 
-int list::clist::Free(void)
+int list::CList::Free(void)
 {
-	try{
-		if (this->CList != nullptr) {
-			auto FreeList = this->CList;
-			auto DelPoint = new Pointer;;
 
-			DelPoint = FreeList->next;
-			FreeList->next = nullptr;
-			FreeList = nullptr;
-			FreeList = DelPoint;
+	if (this->ioList->next != nullptr) {
+		Pointer* FreeList = this->ioList;
+		Pointer* DelPoint = new Pointer;
 
-			while (FreeList)
-			{
-				DelPoint = FreeList;
-				FreeList = FreeList->next;
-				delete DelPoint;
-			}
+		DelPoint = FreeList->next;
+		FreeList->next = nullptr;
+		FreeList = nullptr;
+		FreeList = DelPoint;
 
-			this->malloc(FreeList);
-			this->malloc(DelPoint);
-
-			this->Rebuild(true);
-			this->Delete(0);
-
-			return 0;
+		while (FreeList){
+			DelPoint = FreeList;
+			FreeList = FreeList->next;
+			delete DelPoint;
 		}
 
-		throw "# Traceback (FREE): The list is empty";
+		this->malloc(FreeList);
+		this->malloc(DelPoint);
 
-	}
-	catch (char * Exception) {
-		std::cout << Exception << std::endl;
-		return 1;
+		return 0;
 	}
 
 }
 
-list::clist::~clist(void)
+list::CList::~CList(void)
 {
-	list::clist::Free();
-	this->CList = nullptr;
-	delete this->CList;
+	list::CList::Free();
+	this->ioList = nullptr;
+	delete this->ioList;
 }
 
-void list::clist::Output(void)
+void list::CList::Output(void)
 {
-	if (this->CList != nullptr) {
-		auto Output = this->CList;
+	if (this->ioList->next != nullptr){
+		auto Output = this->ioList->next;
 
 		std::cout << "[ ";
 		while (Output){
@@ -156,91 +149,70 @@ void list::clist::Output(void)
 		std::cout << "[]\n";
 }
 
-int list::clist::Len(void)
+int list::CList::Len(void)
 {
-	if (this->CList != nullptr) {
-		auto CopyList = this->CList;
+	if(this->ioList->next != nullptr){
+		auto CopyList = this->ioList->next;
 		auto length(0);
 
-		while (CopyList) {
+		while (CopyList){
 			length++;
-			if (CopyList->next == nullptr) {
+			if (CopyList->next == nullptr){
 				CopyList = nullptr;
 				delete CopyList;
 				return length;
 			}
 			CopyList = CopyList->next;
 		}
-
 	}
-
 	return 0;
-
 }
 
-int list::clist::Rebuild(bool freeOption) {
-	if (this->CList == nullptr || freeOption == true) {
-		this->CList = nullptr;
-		auto InitList = &(this->CList);
-		*InitList = new Pointer;
-		(*InitList)->item = 0;
-		(*InitList)->next = nullptr;
-		return 0;
-	}
-	return 1;
-}
-
-int list::clist::Insert(const int &num, const int &pos)
+int list::CList::Insert(const int &num, const int &pos)
 {
 	try {
-		int length = list::clist::Len();
+		int length = list::CList::Len();
 		auto InsertBlock = new Pointer;
-		auto CopyList = this->CList;
+		auto CopyList = this->ioList;
 
-		if (this->CList == nullptr && pos == 0) {
-			this->Rebuild();
-			this->CList->item = num;
-			this->CList->next = nullptr;
+		InsertBlock->item = num;
+		InsertBlock->next = nullptr;
+
+		if (pos == 0) {
+			InsertBlock->next = this->ioList->next;
+			this->ioList->next = InsertBlock;
 		}
-		else{
-			InsertBlock->item = num;
-			InsertBlock->next = nullptr;
+		else if (pos == length) {
+			if (InsertBlock && CopyList) {
 
-			if (pos == 0) {
-				InsertBlock->next = this->CList;
-				this->CList = InsertBlock;
-			}
-			else if (pos == length) {
-				if (InsertBlock && CopyList) {
-
-					while (CopyList) {
-						if (!CopyList->next){
-							CopyList->next = InsertBlock;
-							break;
-						}
-						CopyList = CopyList->next;
-					}
-
-				}
-				else
-					throw "# Traceback (INSERT): Incorrect arguments";
-			}
-			else if (pos > 0 && pos < length) {
-				int curp(0);
-
-				while (_c_INFINITY){
-					if (pos - 1 == curp){
-						InsertBlock->next = CopyList->next;
+				while (CopyList) {
+					if (!CopyList->next){
 						CopyList->next = InsertBlock;
 						break;
 					}
-					curp++;
 					CopyList = CopyList->next;
 				}
+
 			}
 			else
-				throw "# Traceback (INSERT): Invalid second argument";
+				throw "# Traceback (INSERT): Incorrect arguments";
 		}
+		else if (pos > 0 && pos < length) {
+			int curp(0);
+			CopyList = CopyList->next;
+
+			while (_c_INFINITY){
+				if (pos - 1 == curp){
+					InsertBlock->next = CopyList->next;
+					CopyList->next = InsertBlock;
+					break;
+				}
+				curp++;
+				CopyList = CopyList->next;
+			}
+		}
+		else
+			throw "# Traceback (INSERT): Invalid second argument";
 
 		this->malloc(InsertBlock);
 		this->malloc(CopyList);
@@ -252,25 +224,23 @@ int list::clist::Insert(const int &num, const int &pos)
 	}
 }
 
-int list::clist::Delete(const int &pos) {
-
-	try {
-		if (this->CList != nullptr) {
+int list::CList::Delete(const int &pos) {
+	try{
+		if (this->ioList != nullptr) {
 			int length = this->Len();
 			auto DeleteBlock = new Pointer;
-			auto CopyList = this->CList;
-			if (pos == 0 && pos < length) {
-				if (!CopyList)
+			auto CopyList = this->ioList;
+
+			if (pos == 0) {
+				DeleteBlock = CopyList->next;
+				if (!DeleteBlock)
 					throw "# Traceback (DELETE): List is empty";
-				else if (CopyList){
-					this->CList = this->CList->next;
-					CopyList = nullptr;
+				else if (DeleteBlock && DeleteBlock->next) {
+					CopyList->next = DeleteBlock->next;
 				}
-				else if (CopyList && CopyList->next){
-					this->CList = this->CList->next;
-					CopyList = nullptr;
+				else if (DeleteBlock){
+					CopyList->next = nullptr;
 				}
-				delete CopyList;
 			}
 			else if (pos == length - 1 && pos != 0) {
 				DeleteBlock = CopyList->next;
@@ -287,7 +257,7 @@ int list::clist::Delete(const int &pos) {
 				}
 			}
 			else if (pos > 0 && pos < length - 1) {
-				DeleteBlock = this->CList;
+				DeleteBlock = this->ioList->next;
 				CopyList = DeleteBlock->next;
 
 				int curp(0);
@@ -321,13 +291,13 @@ int list::clist::Delete(const int &pos) {
 	}
 }
 
-int list::clist::Sort() {
+int list::CList::Sort() {
 	try {
-		if (this->CList != nullptr) {
+		if (this->ioList->next != nullptr) {
 			int length = this->Len();
 
-			auto GetList = this->CList;
-			auto WriteList = this->CList;
+			auto GetList = this->ioList->next;
+			auto WriteList = this->ioList->next;
 
 			int* listed = new int[length];
 
@@ -417,11 +387,11 @@ int list::clist::Sort() {
 
 }
 
-int list::clist::Search(const int &num) {
-	auto SearchList = this->CList;
+int list::CList::Search(const int &num) {
+	auto SearchList = this->ioList->next;
 
 	try {
-		if (this->CList != nullptr) {
+		if (this->ioList->next != nullptr) {
 			int length = this->Len();
 
 			int pos(0);
@@ -446,14 +416,14 @@ int list::clist::Search(const int &num) {
 	}
 }
 
-void list::clist::swap(int *listArray, const int &i, const int  &j)
+void list::CList::swap(int *listArray, const int &i, const int &j)
 {
 	auto glass = listArray[i];
 	listArray[i] = listArray[j];
 	listArray[j] = glass;
 }
 
-int list::clist::malloc(Pointer* ptr) {
+int list::CList::malloc(Pointer* ptr) {
 	ptr = nullptr;
 	delete ptr;
 	return 0;

@@ -2,21 +2,21 @@
 #include "queue.h"
 
 int list::queue::Push(const int &num) {
-	int length = clist::Len();
+	int length = CList::Len();
 
-	if (!clist::Insert(num, length))
+	if (!CList::Insert(num, length))
 		return 0;
 	return 1;
 }
 
 int list::queue::Pop(void) {
 	try{
-		if(this->CList != nullptr){
-			auto CopyList = this->CList;
+		if(this->ioList->next != nullptr){
+			auto CopyList = this->ioList->next;
 			auto ReturnItem = new Pointer;
 
 			ReturnItem = CopyList;
-			clist::Delete(0);
+			CList::Delete(0);
 
 			return ReturnItem->item;
 		}

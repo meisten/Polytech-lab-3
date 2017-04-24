@@ -2,27 +2,26 @@
 #include "deque.h"
 
 int list::deque::Push(const int &num) {
-	int length = clist::Len();
-	if (!clist::Insert(num, length))
+	int length = CList::Len();
+	if (!CList::Insert(num, length))
 		return 0;
 	return 1;
 }
 
 int list::deque::PushFront(const int &num) {
-	if (!clist::Insert(num, 0))
+	if (!CList::Insert(num, 0))
 		return 0;
 	return 1;
 }
 
 int list::deque::PopFront(void) {
 	try{
-		if (this->CList != nullptr) {
-			auto CopyList = this->CList;
+		if (this->ioList->next != nullptr) {
+			auto CopyList = this->ioList->next;
 			auto ReturnItem = new Pointer;
 
 			ReturnItem = CopyList;
-			clist::Delete(0);
-
+			CList::Delete(0);
 			return ReturnItem->item;
 		}
 		else
@@ -36,9 +35,9 @@ int list::deque::PopFront(void) {
 
 int list::deque::Pop(void) {
 	try {
-		if (this->CList != nullptr) {
-			int length = clist::Len();
-			auto CopyList = this->CList;
+		if (this->ioList->next != nullptr) {
+			int length = CList::Len();
+			auto CopyList = this->ioList;
 			auto ReturnItem = new Pointer;
 
 			int i(0);
@@ -52,7 +51,7 @@ int list::deque::Pop(void) {
 			else if(CopyList->next)
 				ReturnItem = CopyList->next;
 
-			clist::Delete(length - 1);
+			CList::Delete(length - 1);
 			return ReturnItem->item;
 		}
 
